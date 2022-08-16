@@ -1,17 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import FavoriteCards from "../FavoritesCard/FavoriteCards";
-import { FavoriteContainer } from './Favorites.style';
+import { FavoriteContainer, ErrorTitle } from "./Favorites.style";
 
 const Favorites = ({ movie }) => {
-  return (
+  if (movie.length > 0) {
+    return (
       <FavoriteContainer>
         {movie &&
           movie.map((m) => (
             <FavoriteCards key={m.imdbID} movie={m}></FavoriteCards>
           ))}
       </FavoriteContainer>
-  );
+    );
+  } else {
+    return <FavoriteContainer><ErrorTitle>Aún no añadiste ninguna película a tus favoritos</ErrorTitle></FavoriteContainer>
+  }
 };
 
 function mapStateToProps(state) {
